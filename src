@@ -7,9 +7,9 @@ int main()
 {
 	void ProcessString(char* str1,char *str2,char * strOutput);
    char *str1,*str2,*str;
-	str1=(char *)malloc(128);
-	str2=(char *)malloc(128);
-	str=(char *)malloc(256);
+        str1 = new char[128];
+	str2 = new char[128];
+	str = new char[256];
 	cin.get(str1,128,' ');
 	cin.clear();
 	cin.get();
@@ -18,15 +18,14 @@ int main()
 		return -1;
 	ProcessString(str1,str2,str);
 	cout<<str<<endl;
-	free(str1);
-	free(str2);
-	free(str);
+	delete[] str1;
+	delete[] str2;
+	delete[] str;
 	return 0;	
 }
 void ProcessString(char* str1,char *str2,char * strOutput) 
 {
 //////////////////字符串合并处理////////////////////////////
-
     int len,result=0,con=0,i,j;
     char *p=strOutput,temp;
 	//memcpy(p,0,256);
