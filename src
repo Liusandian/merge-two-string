@@ -1,0 +1,109 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <string>
+#include<malloc.h>
+using namespace std;
+int main()
+{
+	void ProcessString(char* str1,char *str2,char * strOutput);
+   char *str1,*str2,*str;
+	str1=(char *)malloc(128);
+	str2=(char *)malloc(128);
+	str=(char *)malloc(256);
+	cin.get(str1,128,' ');
+	cin.clear();
+	cin.get();
+	cin.get(str2,128,'\n');
+    if(strlen(str1)<1||strlen(str2)<1) 
+		return -1;
+	ProcessString(str1,str2,str);
+	cout<<str<<endl;
+	free(str1);
+	free(str2);
+	free(str);
+	return 0;	
+}
+void ProcessString(char* str1,char *str2,char * strOutput) 
+{
+//////////////////字符串合并处理////////////////////////////
+
+    int len,result=0,con=0,i,j;
+    char *p=strOutput,temp;
+	//memcpy(p,0,256);
+    strcpy(p,str1);//str1 字符串复制到指针p指向的地址空间
+	strcat(p,str2);//字符串合并
+    len=strlen(p);
+    for(i=0;i<len;i+=2)
+    {
+     for(j=i;j<len;j+=2)
+		 {
+			   if((j+2)>=len) 
+				   break;
+			   if(p[i]>p[j+2])//下标为偶数时候排序
+			   {
+				   temp=p[i];
+				   p[i]=p[j+2];
+				   p[j+2]=temp;
+			   }
+			   if((j+3)>=len) 
+				   break;
+			   if(p[i+1]>p[j+3])//下标为奇数时候排序
+			   {
+				   temp=p[i+1];
+				   p[i+1]=p[j+3];
+				   p[j+3]=temp;
+			   }
+		 }
+    }
+    for(i=0;i<len;i++)
+    {
+        if(p[i]>='a'&&p[i]<='f') 
+			p[i]-=32;//转换成大写字母，f 变成F
+		if((p[i]>='0'&&p[i]<='9')||(p[i]>='A'&&p[i]<='F'))
+		{
+			switch(p[i])
+			{
+			case '1':
+				p[i]='8';
+				break;
+			case '2':
+				p[i]='4';
+				break;
+			case '3':
+				p[i]='C';
+				break;
+			case '4':
+				p[i]='2';
+				break;
+			case '5':
+				p[i]='A';
+				break;
+			case '7':
+				p[i]='E';
+				break;
+			case '8':
+				p[i]='1';
+				break;
+			case 'A':
+				p[i]='5';
+				break;
+			case 'B':
+				p[i]='D';
+				break;
+			case 'C':
+				p[i]='3';
+				break;
+			case 'D':
+				p[i]='B';
+				break;
+			case 'E':
+				p[i]='7';
+				break;
+			default:
+				break;
+			}
+		}
+		else continue;
+	}
+strOutput=p;
+}
